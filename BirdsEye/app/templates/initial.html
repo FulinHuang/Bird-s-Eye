@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<style>
+body {
+  background-image: url('/static/background/main.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.center {
+ text-align: center
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  font-size: 17px;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+#myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+</style>
+</head>
+<body>
+<video autoplay muted loop id="myVideo">
+  <source src="https://a3background.s3.amazonaws.com/ny_new.mp4" type="video/mp4">
+</video>
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-black w3-animate-top w3-xxlarge" style="display:none;padding-top:150px" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-black w3-xxlarge w3-padding w3-display-topright" style="padding:6px 24px">
+    <i class="fa fa-remove"></i>
+  </a>
+  <div class="w3-bar-block w3-center" style="font-family:Jazz LET">
+    <a href="{{ url_for('about_us') }}" class="w3-bar-item w3-button w3-text-grey w3-hover-black" >ABOUT BIRD'S EYE</a>
+    <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-text-grey w3-hover-black">LOGIN</a>
+  </div>
+</nav>
+<!-- Header -->
+<div class="w3-opacity" >
+<span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+<div class="w3-clear"></div>
+<a href="{{ url_for('login') }}"><h1 class="center w3-xxxlarge w3-text-white" style="position:relative; top:500px; font-family:Jazz LET; color:black; font-weight:100;" ><span class="w3-padding w3-black w3-animate-opacity"> - DISCOVER YOUR WORLD - </span></h1></a>
+
+<div class="center" style="position:relative;top:500px;">
+
+<p>
+    <a href="{{ url_for('home') }}" style="color:white;font-family:Jazz LET">ENTER BIRD'S EYE</a>
+</p>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge footer" style="margin-top:128px">
+  <a class="fa fa-facebook-official w3-hover-opacity" href="https://www.facebook.com/"></a>
+  <a class="fa fa-instagram w3-hover-opacity" href="https://www.instagram.com/"></a>
+  <a class="fa fa-pinterest-p w3-hover-opacity" href="https://www.pinterest.com/"></a>
+  <a class="fa fa-twitter w3-hover-opacity" href="https://www.twitter.com/"></a>
+  <a class="fa fa-linkedin w3-hover-opacity" href="https://www.linkedin.com/"></a>
+  <p class="w3-medium">Powered by Allen, Irene and Yilun</a></p>
+</footer>
+
+<script>
+// Toggle grid padding
+function myFunction() {
+  var x = document.getElementById("myGrid");
+  if (x.className === "w3-row") {
+    x.className = "w3-row-padding";
+  } else {
+    x.className = x.className.replace("w3-row-padding", "w3-row");
+  }
+}
+
+// Open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.width = "100%";
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+</body>
+</html>

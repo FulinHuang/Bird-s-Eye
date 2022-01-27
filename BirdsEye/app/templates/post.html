@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.pointer {cursor: pointer;}
+.w3-third img{margin-bottom: -6px; opacity: 0.8; cursor: pointer}
+.w3-third img:hover{opacity: 1}
+.avatar {
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.avatar2 {
+  vertical-align: middle;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Create two equal columns that floats next to each other */
+.column1 {
+  float: left;
+  width: 30%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row1:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url('https://a3background.s3.amazonaws.com/kite.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+</style>
+
+<center><div class="content-section" style="position:relative; top:50px; width: 100%;" >
+    <h1>{{ user.username }}</h1>
+<a href="{{ url_for('user',username=user.username) }}">
+    <img src="{{storage_address + avatar_folder_name + '/' + user.avatar}}" alt="Avatar" class="avatar">
+</a>
+    <div><h5>{{ user.address }}</h5></div>
+
+    <hr style="height:3px;border:none;color:#333;background-color:#333;" />
+               <h4 style="font-size:30px; font-style: bold;">{{ photo_name }}</h4>
+
+    <div >
+            <img src="{{storage_address + folder_name + '/' + file}}" class="img-fluid modal-content" style="" onclick="onClick(this)" alt="{{ file }}" >
+
+
+         <a style="font-size:20px; font-style: italic; color:#99c2ff">{{ photo_hashtag }} </a>
+         <p style="font-size:25px;">{{ photo_des }}</p>
+        <hr style="height:3px;border:none;color:#333;background-color:#333;" />
+            {% for comment in comment_list %}
+        <div class="row1">
+        <div class="column1" style="position:relative;"><a href="{{ url_for('user',username=comment[0]) }}" >
+            <p style="font-size:22px; font-family:Jazz LET;">{{ comment[0] }}</p>
+            <img src="{{storage_address + avatar_folder_name + '/' + comment[1]}}" alt="Avatar" class="avatar2">
+           </a>
+            <p style="font-size:13px; color:#b3b3cc">{{ comment[2] }}</p>
+        </div>
+            <div class="column1 " style="font-size:20px; "><p style="position:relative; top:50px; ">{{ comment[3] }} </p></div>
+            <div class="column1 " style="font-size:10px; "><p style="position:relative; top:150px; ">{{ comment[4] }} </p></div>
+        </div>
+        <hr/>
+            {% endfor %}
+
+         <form action="" method="post" style="position:relative; top:50px;">
+             {{ form1.hidden_tag() }}
+             <p>
+                 {{ form1.comment.label }}<br>
+                 {{ form1.comment(size=100) }}<br>
+                 {% for error in form1.comment.errors %}
+                 <span style="color: red;">[{{ error }}]</span>
+                 {% endfor %}
+             </p>
+             <p>{{ form1.submit() }}</p>
+         </form>
+         {% if user.username == current_user.username %}
+         <p  style="font-size:15px; position:relative; top:30px; ">
+             <a href="{{ url_for('next_page',filename=file) }}" style="font-size:15px; position:relative; right:200px;" class="myButton">Edit this Post</a>
+             <a href="{{ url_for('delete_photo',username=user.username, post=file) }}" style="font-size:15px; color:tomato; position:relative; left:200px;" class="myButton" onclick="return confirm('Are You Sure?');">Delete this Post</a>
+         </p>
+         {% else %}
+         {% endif %}
+         </div>
+
+    </div>
+       <a href="{{ url_for('user',username=user.username) }}" style="font-size:15px; position:relative; top:150px;" class="myButton">Back to {{ user.username }}</a>
+
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+{% endblock content %}

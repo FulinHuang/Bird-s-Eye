@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.pointer {cursor: pointer;}
+.w3-third img{margin-bottom: -6px; opacity: 0.8; cursor: pointer}
+.w3-third img:hover{opacity: 1}
+.avatar {
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Create two equal columns that floats next to each other */
+.column1 {
+  float: left;
+  width: 30%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row1:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url('https://a3background.s3.amazonaws.com/m.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+</style>
+<center><div class="content-section" style="position:relative; top:50px; width: 100%;" >
+
+
+    <h2>BIRD'S EYE COMMUNITY</h2>
+    <div class="row pointer" style="position:relative; top:50px; width: 100%;">
+    {% for user in user_list %}
+    <div class="column" style="position:relative; width: 250px;">
+        <a href="{{ url_for('user',username=user[0]) }}">
+            <img src="{{storage_address + avatar_folder_name + '/' + user[1]}}" alt="Avatar" class="avatar w3-hover-opacity" >
+        </a>
+
+        <p style="font-size:20px;" href="{{ url_for('user',username=user[0]) }}">{{ user[0] }} ({{ user[2] }})</p>
+         </div>
+        {% endfor %}
+    </div>
+       <a href="{{ url_for('home') }}" style="font-size:15px; position:relative; top:150px;" class="myButton">RETURN</a>
+</div></center>
+
+
+{% endblock content %}

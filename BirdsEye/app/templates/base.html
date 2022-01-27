@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>BIRD'S EYE</title>
+    {% endif %}
+
+    <div class="container">
+        {% block header %}
+        {% endblock %}
+    </div>
+</head>
+<body>
+<style>
+li a:hover:not(.active) {
+  background-color: #111;
+}
+.active {
+  background-color: #4CAF50;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#content-wrap {
+  padding-bottom: 280px;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="position: relative;">
+    <img src="https://a3background.s3.amazonaws.com/logo1.png" width="50" height="50" class="img-thumbnail, img"  >
+    <a class="navbar-brand" href="">BIRD'S EYE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" id="nav-1">
+                <a class="nav-link" href="{{ url_for('initial') }}">Welcome <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" id="nav-2">
+                <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" id="nav-4">
+                <a class="nav-link" href="{{ url_for('register') }}">Register <span class="sr-only">(current)</span></a>
+            </li>
+            {% if current_user.is_anonymous %}
+            {% else %}
+                <li class="nav-item" id="nav-5">
+                    <a class="nav-link" href="{{ url_for('upload') }}">Upload <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" id="nav-6">
+                    <a class="nav-link" href="{{ url_for('list') }}">User List <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" id="nav-7">
+                    <a class="nav-link" href="{{ url_for('photos_search') }}">Photo Library <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" id="nav-8">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout <span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
+            <li class="nav-item" id="nav-3">
+                {% if current_user.is_anonymous %}
+                <a class="nav-link" href="{{ url_for('login') }}">Login <span class="sr-only">(current)</span></a>
+                {% endif %}
+            </li>
+        </ul>
+        {% if 'user' in session %}
+        <img class='img-small' src="static/img/user-outline.svg"/>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{{ url_for('logout') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span class="navbar-text">{{ session['user'] }}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+        &nbsp &nbsp
+        {% else %}
+        {% endif %}
+    </div>
+
+
+    <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    <div id="mySidenav" class="sidenav" class="overlay" >
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/" style="font-size:20px">Welcome</a>
+        {% if current_user.is_anonymous %}
+        <a href="/login" style="font-size:20px">Login</a>
+        {% else %}
+        <a href="/home" style="font-size:20px">Home</a>
+        <a href="/change_password" style="font-size:20px">Change Password</a>
+        <a href="/upload_avatar" style="font-size:20px">Change Avatar</a>
+        <a href="/change_profile" style="font-size:20px">Change Profile</a>
+        <a href="/logout" style="font-size:20px">Logout</a>
+        {% endif %}
+        <a href="/about_us" style="font-size:20px">About US</a>
+</div>
+</nav>
+
+<div class="container" id="content-wrap" >
+ {% include 'includes/_messages.html' %}
+    {% block content %}{% endblock %}
+</div>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "350px";
+  document.getElementById("main").style.marginLeft = "350px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>
+{% block footer %}{% endblock %}
+</body>
+</html>

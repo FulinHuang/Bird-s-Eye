@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.pointer {cursor: pointer;}
+.w3-third img{margin-bottom: -6px; opacity: 0.8; cursor: pointer}
+.w3-third img:hover{opacity: 1}
+.avatar {
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Create two equal columns that floats next to each other */
+.column1 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row1:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url('https://a3background.s3.amazonaws.com/zebra.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+</style>
+<center><div class="content-section" style="position:relative; top:50px; width: 100%;" >
+    <h1>{{ current_user.username }}</h1>
+<a href="{{ url_for('upload_avatar') }}" >
+    <img src="{{storage_address + avatar_folder_name + '/' + current_user.avatar}}" alt="Avatar" class="avatar">
+</a>
+    <div><h5>{{ current_user.address }}</h5></div>
+    <a style="font-size:10px;" href="{{ url_for('user',username=current_user.username) }}">My Profile Page</a>
+    <div class="row1" style="position:relative; top:30px;">
+        <div class="column1" >
+            <p style="font-size:20px;">{{ posts }}</p>
+        </div>
+        <div class="column1" >
+            <p style="font-size:20px;">{{ popularity }}</p>
+        </div>
+    </div>
+    <div class="row1"  >
+        <div class="column1" >
+            <p style="font-size:15px;">Posts</p>
+        </div>
+        <div class="column1" >
+            <p style="font-size:15px;">Popularity</p>
+        </div>
+    </div>
+
+    <hr style="height:3px;border:none;color:#333;background-color:#333;" />
+
+    <h4>My Posts</h4>
+    <div class="row pointer">
+        {% for file in all_files %}
+    <div class="column" >
+            <img src="{{storage_address + folder_name + '/' + file[1]}}" class="img-fluid modal-content w3-hover-opacity" style="width: 370px; height: 250px; object-fit: cover;" onclick="onClick(this)" alt="{{ file[2] }}" >
+
+  <!-- Modal for full size images on click-->
+    <div id="modal01" class="w3-modal" style="padding-top:150px" onclick="this.style.display='none'">
+    <span class="w3-button w3-hover-red w3-xlarge w3-display-topright"></span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent">
+      <img id="img01" class="w3-image">
+      <p id="caption"></p>
+    </div>
+    </div>
+         <a style="font-size:15px;" href="{{ url_for('post',username=current_user.username, post=file[1]) }}">{{ file[2] }}</a>
+         </div>
+        {% endfor %}
+    </div>
+       <a href="{{ url_for('upload') }}" style="font-size:15px; position:relative; top:50px;" class="myButton">Upload a New Post</a>
+        </div></center>
+<audio controls autoplay style=" position:fixed; bottom:0px; left:0px">
+  <source src="https://a3background.s3.amazonaws.com/wenque.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+{% endblock content %}

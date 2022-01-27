@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url('https://a3background.s3.amazonaws.com/old_uoft.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  color: #474e5d;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="about-section" style="font-family:Jazz LET;">
+  <h1 style="font-family:Jazz LET;">About Us</h1>
+  <p>Some text about who we are and what we do.</p>
+</div>
+
+<h2 style="text-align:center; font-family:Jazz LET;">Our Team</h2>
+<div class="row" style="font-family:Jazz LET;">
+  <div class="column" >
+    <div class="card" >
+      <img src="https://a3background.s3.amazonaws.com/irene.jpg" alt="Irene" style="width:100%; height: 400px; object-fit: cover;" >
+      <div class="container" style="position:relative;top:0px;">
+        <h2>Irene Huang</h2>
+        <p class="title">CEO</p>
+        <p>My name is Irene!</p>
+        <p>irene@ece1779.com</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="https://a3background.s3.amazonaws.com/Yilun.jpg" alt="Yilun" style="width:100%; height: 400px; object-fit: cover;">
+      <div class="container">
+        <h2>Yilun Wan</h2>
+        <p class="title">CEO</p>
+        <p>My name is Yilun!</p>
+        <p>yilun@ece1779.com</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="https://a3background.s3.amazonaws.com/allen.jpg" alt="Allen" style="width:100%; height: 400px; object-fit: cover;">
+      <div class="container">
+        <h2>Allen Luan</h2>
+        <p class="title">CEO</p>
+        <p>My name is Allen!</p>
+        <p>allen@ece1779.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge footer" style="margin-top:128px">
+  <a class="fa fa-facebook-official w3-hover-opacity" href="https://www.facebook.com/"></a>
+  <a class="fa fa-instagram w3-hover-opacity" href="https://www.instagram.com/"></a>
+  <a class="fa fa-pinterest-p w3-hover-opacity" href="https://www.pinterest.com/"></a>
+  <a class="fa fa-twitter w3-hover-opacity" href="https://www.twitter.com/"></a>
+  <a class="fa fa-linkedin w3-hover-opacity" href="https://www.linkedin.com/"></a>
+  <p class="w3-medium">Powered by Allen, Irene and Yilun</a></p>
+</footer>
+{% endblock content %}

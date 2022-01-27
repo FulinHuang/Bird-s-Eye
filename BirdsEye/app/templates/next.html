@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url('https://a3background.s3.amazonaws.com/99.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+<center><div class="content-section" style="position:relative;top:50px;" >
+    <h1>Hello, {{ current_user.username }}!</h1>
+
+    <div style="position:relative;top:50px;">
+    <h5>Details About This Post</h5>
+                    <img src="{{storage_address + folder_name + '/' + file}}" class="img-fluid modal-content" style="" onclick="onClick(this)" alt="{{ file }}" >
+         <form method="POST" action="" enctype="multipart/form-data">
+             {{ form1.hidden_tag() }}
+
+             <p>
+            {{ form1.photoname.label }}<br>
+            {{ form1.photoname(size=32) }}<br>
+            {% for error in form1.photoname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+
+             <p>
+            {{ form1.hashtag.label }}<br>
+            {{ form1.hashtag(size=32) }}<br>
+            {% for error in form1.hashtag.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+
+             <p>
+            {{ form1.description.label }}<br>
+            {{ form1.description(size=100) }}<br>
+            {% for error in form1.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+
+         <p style="position:relative;top:50px;"><input type="submit" value="Submit"></p>
+         </form>
+    </div>
+
+        </div></center>
+{% endblock content %}

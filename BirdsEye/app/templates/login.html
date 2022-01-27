@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url('https://a3background.s3.amazonaws.com/11111.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+<center><div style="position:relative;top:150px;">
+    <h1>LOGIN</h1 >
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <p>Click if you want to register: <a href="{{ url_for('register') }}">Register Your BIRD'S EYE Account</a></p>
+        <p>Click if you forget your password: <a href="{{ url_for('reset_password_request') }}">Reset Password</a></p>
+    </form>
+<audio controls autoplay style=" position:fixed; bottom:0px; left:0px">
+  <source src="https://a3background.s3.amazonaws.com/wenque.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    </div></center>
+{% endblock %}
